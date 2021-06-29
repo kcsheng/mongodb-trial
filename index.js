@@ -34,9 +34,14 @@ async function getCourses() {
     // .find({
     //   author: "Mosh",
     //   isPublished: true,
-    // });
-    .find()
-    .or([{ author: "Mosh" }, { isPublished: true }])
+    // })
+    // Regular expression
+    .find({ author: /^KC/i }) //starts with KC
+    .find({ author: /Sheng$/i }) // ends with Sheng
+    .find({ author: /.*KC.*/ }) // contains the word KC
+    .limit(10)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 })
     .and([{}]);
   console.log(courses);
 }
