@@ -28,16 +28,16 @@ async function createCourse() {
   console.log(result);
 }
 async function getCourses() {
-  // or
-  // and
-  const courses = await Course
-    // .find({
-    //   author: "Mosh",
-    //   isPublished: true,
-    // })
-    // .limit(10)
-    // .sort({ name: 1 })
-    .count();
+  const pageNumber = 2;
+  const pageSize = 10;
+  // /api/courses?pageNumber=2&pageSize=10
+  const courses = await Course.find({
+    author: "Mosh",
+    isPublished: true,
+  })
+    .skip((pageNumber - 1) * pageSize) // We need to skip all the documents in the previous page
+    .limit(pageSize) // skip method goes hand in hand with limit for pagination
+    .sort({ name: 1 });
   console.log(courses);
 }
 getCourses();
