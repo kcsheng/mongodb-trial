@@ -28,25 +28,16 @@ async function createCourse() {
   console.log(result);
 }
 async function getCourses() {
-  // eq (equal)
-  // ne (not equal to)
-  // gt (greater than)
-  // gte (greater than or equal to)
-  // lt (less than)
-  // lte (less than or equal to)
-  // in
-  // nin (not in)
+  // or
+  // and
   const courses = await Course
     // .find({
     //   author: "Mosh",
     //   isPublished: true,
-    // })
-    // .find({ price: { $gte: 10, $lte: 20 } })
-    .find({ price: { $in: [10, 20, 30] } })
-    .limit(10)
-    .sort({ name: 1 })
-    .select({ name: 1, tags: 1 });
-  // Property to be returned
+    // });
+    .find()
+    .or([{ author: "Mosh" }, { isPublished: true }])
+    .and([{}]);
   console.log(courses);
 }
 getCourses();
