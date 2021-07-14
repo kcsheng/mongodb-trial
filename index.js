@@ -37,7 +37,26 @@ async function getCourses() {
   })
     .skip((pageNumber - 1) * pageSize) // We need to skip all the documents in the previous page
     .limit(pageSize) // skip method goes hand in hand with limit for pagination
-    .sort({ name: 1 });
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
   console.log(courses);
 }
-getCourses();
+
+async function updateCourse(id) {
+  // approach one:
+  // query first - then findById, then modify properties, save
+  const course = await Course.findById(id);
+  if (!course) return;
+  // course.isPublished = true;
+  // course.author = "Another Author";
+  course.set({
+    isPublished: true,
+    author: "Another Author",
+  });
+  const result = await course.save();
+  console.log(result);
+  // approach two:
+  // update first - instead of retrieving the document, update directly in the db
+  // optionally - get the document
+}
+updateCourse("60da6cead2b0a97911c67d81");
