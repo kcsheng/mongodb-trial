@@ -46,15 +46,13 @@ async function updateCourse(id) {
   // approach two:
   // update first - instead of retrieving the document, update directly in the db
   // check the doc for operators
-  const result = await Course.updateOne(
-    { _id: id },
-    {
-      $set: {
-        author: "KC",
-        isPublished: false,
-      },
-    }
-  );
+  // Sometimes we want to get the updated document as well.
+  const course = await Course.findByIdAndUpdate(id, {
+    $set: {
+      author: "Jason",
+      isPublished: false,
+    },
+  });
 
   console.log(result);
 }
