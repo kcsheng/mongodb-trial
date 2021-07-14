@@ -32,9 +32,12 @@ async function createCourse() {
 }
 
 async function getCourses() {
-  return (courses = await Course.find({ isPublished: true, tags: "backend" })
-    .sort({ name: 1 })
-    .select({ name: 1, author: 1 }));
+  return (courses = await Course.find({
+    isPublished: true,
+    tags: { $in: ["frontend", "backend"] },
+  })
+    .sort("-price")
+    .select("name author price"));
 }
 
 async function run() {
