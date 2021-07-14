@@ -24,8 +24,9 @@ async function createCourse() {
   });
   try {
     // Use try and catch block to catch any validation errors
-    const result = await course.save();
-    console.log(result);
+    // const result = await course.save();
+    // console.log(result);
+    await course.validate();
   } catch (ex) {
     console.log(ex.message);
   }
