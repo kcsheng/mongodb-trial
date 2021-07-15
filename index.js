@@ -25,9 +25,7 @@ const courseSchema = new mongoose.Schema({
     type: Array,
     // custom validator
     validate: {
-      validator: function (value) {
-        return value && value.length > 0;
-      },
+      validator: (value) => Promise.resolve(value && value.length > 0),
       message: "A course should at least have one tag.", // empty or null or absent tag
     },
   },
