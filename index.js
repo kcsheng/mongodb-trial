@@ -19,6 +19,8 @@ const courseSchema = new mongoose.Schema({
     type: String,
     enum: ["web", "mobile", "network"], //enum validator
     required: true,
+    lowercase: true,
+    trim: true,
   },
   author: String,
   tags: {
@@ -38,17 +40,19 @@ const courseSchema = new mongoose.Schema({
     },
     min: 10,
     max: 200,
+    get: (value) => Math.round(value),
+    set: (value) => Math.round(value),
   },
 });
 const Course = mongoose.model("Course", courseSchema);
 async function createCourse() {
   const course = new Course({
     name: "Angular Course",
-    category: "-",
+    category: "web",
     author: "Mosh",
-    tags: null,
+    tags: ["frontend"],
     isPublished: true,
-    price: 15,
+    price: 15.9324,
   });
   try {
     // Use try and catch block to catch any validation errors
